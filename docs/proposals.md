@@ -1,5 +1,5 @@
 
-MEMC: What things we are trying to analysis?
+## MEMC: What things we are trying to analysis?
 
 1. what "factors" help deal making or "target" making? (we will work in this repo)
     1. features:
@@ -17,6 +17,7 @@ MEMC: What things we are trying to analysis?
     2. target:
         1. deal make or not
         2. initial latency
+        3. user_reply_len>5 (to track whether the user will reply > 5 messages according to initial reply)
 
 2. Which message can use AI to replace? ( hard to answer)
 3. Other visualization (only need notebooks to conduct)
@@ -24,18 +25,11 @@ MEMC: What things we are trying to analysis?
     2. initial latency vs deal makr or not
 
 
-
-點客數 vs latency
-Latency vs 成功率
-單位訊息成本 vs ai 訊息成本
-用這些指標設計我們的ai 模型
-幾趴 可以自動回
-幾趴一定要人為介入
-明星label上去
-做一個自動判斷能不能ai回的系統
-Label成高機率客戶之後，開始人工回
-每個小編登入自己的帳號 可以互相比對 分析該回答的內容
-做覆盆檢討
+## implmentation steps
+1. facebook data preprocessing ( get assistant, user, formated timestamp)
+2. auto-reply filtering
+3. processing the "features" and the "targets"
+4. Draw graph according to feature vs target
 
 #### Inpuy json format:
 ```json
@@ -48,7 +42,7 @@ Label成高機率客戶之後，開始人工回
       "name": ""
     }
   ],
-  "messages": [
+  "conversation": [
     {
       "sender_name": "",
       "timestamp_ms": 1740924995824,
@@ -68,7 +62,7 @@ Label成高機率客戶之後，開始人工回
 ```
 
 
-#### Output json format:
+#### formated json format:
 ```json
 {
   "features":{
@@ -77,17 +71,18 @@ Label成高機率客戶之後，開始人工回
   "targets":{
 
   }
-  "messages": [
+  "conversation": [
     {
-      "sender_name": "",
-      "timestamp_ms": 1740924995824,
-      "content": "",
+      "sender_name": "user",
+      "timestamp_ms": 2025-03-04T02:48:53.016000,
+      "content": "Hello",
     },
     {
-      "sender_name": "",
-      "timestamp_ms": 1738442381398,
-      "content": "",
+      "sender_name": "Assistant",
+      "timestamp_ms": 2025-03-04T02:48:53.016000,
+      "content": "what can I help you?",
     },
   ]
 }
 ```
+
