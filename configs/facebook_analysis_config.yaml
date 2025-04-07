@@ -1,0 +1,57 @@
+# Facebook Chat Data Analysis Configuration
+
+# General settings
+mode: "production"  # Options: production, testing
+output_dir: "data/output/"
+
+# Platform-specific configuration
+platform:
+  type: "facebook"
+  platform_data_path: "data/this_profile's_activity_across_facebook/messages/inbox/"
+  input_formated_path: "data/formated_data/"
+  output_path: "data/output/"
+  user_name: "Assistant"  # The user's Facebook name (to identify messages)
+  batch_size: 1000
+
+# Feature processor configuration
+feature_processor:
+  min_messages: 10
+  max_messages: 1000
+  # Feature extractors to enable (empty list means all available)
+  enabled_features:
+    - message_count
+    - message_length
+    - response_time
+  # Target extractors to enable (empty list means all available)  
+  enabled_targets:
+    - response_rate
+    - user_engagement
+    - conversation_duration
+
+# Visualization configuration
+visualization:
+  output_dir: "visualizations"
+  plot_format: "png"
+  dpi: 300
+  figsize: [12, 8]
+  style: "darkgrid"
+  plot_types: ["scatter", "bar", "histogram", "heatmap", "boxplot"]
+  top_features: 10
+  correlation_method: "pearson"  # Options: pearson, spearman, kendall
+  target_metric: "response_rate"
+
+# Cleaning options
+cleaning:
+  stopwords_enabled: true
+  language_filter_enabled: true
+  url_filter_enabled: true
+  paragraph_filter_enabled: true
+  exact_dedup_enabled: true
+  min_length: 10
+  max_length: 32768
+
+# Formatting options
+formatting:
+  remove_punctuation: false
+  clean_html: true
+  fix_unicode: true 
